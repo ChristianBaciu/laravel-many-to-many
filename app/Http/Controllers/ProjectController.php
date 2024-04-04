@@ -26,9 +26,7 @@ class ProjectController extends Controller
      */
     public function create(){
         $types = Type::all();// dati della tabella Type
-
         $technologies = Technology::all();// dati della tabella Technology
-
         return view('pages.project.create', compact('types', 'technologies'));
     }
 
@@ -37,18 +35,18 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request){
         // sostituire false con true nel file 'StoreProjectRequest'
-
         $val_data = $request->validated();
 
-        // gestione img
-        if($request->hasFile('cover_image')){
+        if($request->hasFile('cover_image')){// gestione img
             $path = Storage::disk('public')->put('project_image', $request->cover_image);
             $val_data['cover_image'] = $path;
         }
-
         //dd($val_data);
 
         $new_project = Project::create($val_data);
+        if( $request->has('technologies')){
+            $new_project->technologies()->attach($request->technologies);
+        }
         return redirect()->route('dashboard.projects.index');
     }
 
@@ -65,7 +63,6 @@ class ProjectController extends Controller
     public function edit(Project $project){
         $types = Type::all();
         $technologies = Technology::all();
-
         return view('pages.project.edit', compact('project', 'types', 'technologies'));
     }
 

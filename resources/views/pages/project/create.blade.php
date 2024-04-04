@@ -82,7 +82,7 @@
 
             {{-- TECNOLOGIA --}}
             <div class="mb-3">
-                <label for="technologies" class="form-label">Tec</label>
+                <label for="technologies" class="form-label">Tecnologia</label>
                 <select
                     multiple
                     class="form-select form-select-lg"
@@ -91,11 +91,17 @@
                 >
                     <option value="">Seleziona</option>
 
-                    @foreach ($technologies as $tecnologia)
+                    {{-- @foreach ($technologies as $tecnologia)
                     <option value="{{$tecnologia->id}}">
                         {{$tecnologia->name}}
                     </option>
-                    @endforeach
+                    @endforeach --}}
+
+                    @forelse ($technologies as $tecnologia)
+                        <option value="{{$tecnologia->id}}">{{$tecnologia->name}}</option>
+                        @empty
+                        <option value="">Non c'è nulla</option>
+                    @endforelse
 
                 </select>
             </div>

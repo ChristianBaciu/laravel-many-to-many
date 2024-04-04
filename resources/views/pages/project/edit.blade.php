@@ -75,6 +75,37 @@
                 </select>
             </div>
 
+            {{-- TECNOLOGIA --}}
+            <div class="mb-3">
+                <label for="technologies" class="form-label">Tecnologia</label>
+                <select
+                    multiple
+                    class="form-select form-select-lg"
+                    name="technologies[]"
+                    id="technologies"
+                >
+                    <option value="">Seleziona</option>
+
+                    @forelse ($technologies as $tecnologia)
+                        @if ($errors->any())
+                            <option
+                                value="{{$tecnologia->id }}" {{in_array($tecnologia->id, old( 'technologies', [] )) ? 'selected' : ''}}>
+                                {{$tecnologia->name}}
+                            </option>
+                            @else
+                            <option
+                                value="{{$tecnologia->id }}" {{$project->technologies->contains( $tecnologia->id ) ? 'selected' : ''}}>
+                                {{$tecnologia->name}}
+                            </option>
+                        @endif
+
+                        @empty
+                            <option value="">Non c'è nulla</option>
+                    @endforelse
+
+                </select>
+            </div>
+
             {{-- aggiungere sempre 'type submit' --}}
             <button type="submit" class="btn btn-success">Conferma modifica</button>
 

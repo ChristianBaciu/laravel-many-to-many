@@ -26,11 +26,13 @@ class StoreProjectRequest extends FormRequest
             'titolo' => ['required', 'unique:projects', 'max:100'],
             'contenuto' => ['required', 'max:200'],
             'cover_image' => ['nullable', 'image', 'max:20000'],
-            'type_id' => ['nullable', 'exists:types,id']
+            'type_id' => ['nullable', 'exists:types,id'],
+            'technologies' => ['exists:technologies,id']
             // unique: serve per rendere il 'titolo' unico
             // nullable: campo non obbligatorio da complilare
             // image: deve essere di tipo img
             // max: massimo * dimensione
+            // exists: controlla se è presente un record
         ];
     }
 }
