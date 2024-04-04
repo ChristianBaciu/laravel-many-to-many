@@ -71,7 +71,6 @@ class ProjectController extends Controller
      */
     public function update(UpdateProjectRequest $request, Project $project){
         // sostituire false con true nel file 'UpdateProjectRequest'
-
         $val_data = $request->validated();
 
         if($request->hasFile('cover_image')){
@@ -82,7 +81,12 @@ class ProjectController extends Controller
             $val_data['cover_image'] = $path;
         }
 
+
         $project->update($val_data);
+        // dd($request, $project, $request->technologies);
+        if($request->has('technologies')){
+            $project->technologies()->sync($request->technologies);
+        }
         return redirect()->route('dashboard.projects.index');
     }
 
@@ -94,6 +98,9 @@ class ProjectController extends Controller
         if($project->cover_image){
             Storage::delete($project->cover_image);
         }
+
+        // per svuotare/eliminare nella tabella i record del project_technology
+        $project->technologies()->sync([]);
 
         // cancella dal DB
         $project->delete();
