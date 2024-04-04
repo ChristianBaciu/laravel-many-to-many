@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Project;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
+use App\Models\Technology;
 use App\Models\Type;
 use Illuminate\Support\Facades\Storage;
 
@@ -18,17 +19,17 @@ class ProjectController extends Controller
 
         // la funzione 'compact' crea un array in cui la chiave è 'projects'
         return view('pages.project.index', compact('projects'));
-
     }
 
     /**
      * Show the form for creating a new resource.
      */
     public function create(){
-        // dati della tabella Type
-        $types = Type::all();
+        $types = Type::all();// dati della tabella Type
 
-        return view('pages.project.create', compact('types'));
+        $technologies = Technology::all();// dati della tabella Technology
+
+        return view('pages.project.create', compact('types', 'technologies'));
     }
 
     /**
@@ -63,7 +64,9 @@ class ProjectController extends Controller
      */
     public function edit(Project $project){
         $types = Type::all();
-        return view('pages.project.edit', compact('project', 'types'));
+        $technologies = Technology::all();
+
+        return view('pages.project.edit', compact('project', 'types', 'technologies'));
     }
 
     /**

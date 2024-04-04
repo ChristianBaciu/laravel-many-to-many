@@ -14,6 +14,7 @@
             @csrf
             @method('PUT')
 
+            {{-- TITOLO --}}
             <div class="mb-3">
                 <label for="titolo" class="form-label">Titolo</label>
                 <input
@@ -43,6 +44,19 @@
                 />
             </div>
 
+            {{-- CONTENUTO --}}
+            <div class="mb-3">
+                <label for="contenuto" class="form-label">Contenuto</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    name="contenuto"
+                    id="contenuto"
+                    placeholder="..."
+                    value="{{ old('contenuto', $project->contenuto) }}"
+                />
+            </div>
+
             {{-- TYPE --}}
             <div class="mb-3">
                 <label for="type_id" class="form-label">Tipo</label>
@@ -59,18 +73,6 @@
                         @endforeach
 
                 </select>
-            </div>
-
-            <div class="mb-3">
-                <label for="contenuto" class="form-label">Contenuto</label>
-                <input
-                    type="text"
-                    class="form-control"
-                    name="contenuto"
-                    id="contenuto"
-                    placeholder="..."
-                    value="{{ old('contenuto', $project->contenuto) }}"
-                />
             </div>
 
             {{-- aggiungere sempre 'type submit' --}}

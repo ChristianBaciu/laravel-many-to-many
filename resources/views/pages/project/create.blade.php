@@ -13,7 +13,7 @@
             enctype="multipart/form-data">
             @csrf
 
-
+            {{-- TITOLO --}}
             <div class="mb-3">
                 <label for="titolo" class="form-label">Titolo</label>
                 <input
@@ -32,7 +32,6 @@
                 @enderror
             </div>
 
-
             {{-- IMG --}}
             <div class="mb-3">
                 <label for="cover_image" class="form-label">Immagine</label>
@@ -44,8 +43,7 @@
                 />
             </div>
 
-
-
+            {{-- CONTENUTO --}}
             <div class="mb-3">
                 <label for="contenuto" class="form-label">Contenuto</label>
                 <input
@@ -63,7 +61,6 @@
                     </div>
                 @enderror
             </div>
-
 
             {{-- TYPE --}}
             <div class="mb-3">
@@ -83,7 +80,25 @@
                 </select>
             </div>
 
+            {{-- TECNOLOGIA --}}
+            <div class="mb-3">
+                <label for="technologies" class="form-label">Tec</label>
+                <select
+                    multiple
+                    class="form-select form-select-lg"
+                    name="technologies[]"
+                    id="technologies"
+                >
+                    <option value="">Seleziona</option>
 
+                    @foreach ($technologies as $tecnologia)
+                    <option value="{{$tecnologia->id}}">
+                        {{$tecnologia->name}}
+                    </option>
+                    @endforeach
+
+                </select>
+            </div>
 
             {{-- aggiungere sempre 'type submit' --}}
             <button type="submit" class="btn btn-success">Conferma creazione</button>
